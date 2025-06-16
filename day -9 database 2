@@ -32,9 +32,6 @@ mysql> show tables;
 | employee            |
 +---------------------+
 1 row in set (0.00 sec)
-
-mysql> desc employees;
-ERROR 1146 (42S02): Table 'employees.employees' doesn't exist
 mysql> desc employee;
 +----------+-------------+------+-----+---------+-------+
 | Field    | Type        | Null | Key | Default | Extra |
@@ -52,7 +49,6 @@ mysql> insert into employee values(1,'alam freed','finance',30000,2023-02-20),
     -> (3,'vimal','marketing',80000,2023-08-21),
     -> (4,'kathir','finance','20000',2023-07-20),
     -> (5,'levy','finance','50000',2023-05-23);
-ERROR 1292 (22007): Incorrect date value: '2001' for column 'joindate' at row 1
 mysql> insert into employee values(1,'vimal', 'finance',20000,'2023-09-23');
 Query OK, 1 row affected (0.06 sec)
 
@@ -117,7 +113,7 @@ mysql> select* from employee;
 mysql> update employee
     ->  set dept = hr
     -> where empid =5;
-ERROR 1054 (42S22): Unknown column 'hr' in 'field list'
+
 mysql> update employee
     -> set salary=salary+20000 where dept = 'marketing';
 Query OK, 3 rows affected (0.04 sec)
@@ -187,12 +183,8 @@ mysql> select *from emp;
 
 mysql> drop database student;
 Query OK, 2 rows affected (0.08 sec)
-
-mysql> show database;
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'database' at line 1
-mysql> show databases;
 +--------------------+
-| Database           |
+|data bases          |
 +--------------------+
 | employees          |
 | information_schema |
@@ -240,15 +232,6 @@ mysql> select *from emp order by empname desc;
 |     2 | henry   | marketing | 110000 | 2023-04-26 |
 +-------+---------+-----------+--------+------------+
 5 rows in set (0.04 sec)
-
-mysql> select * from emp where department='marketing' and salary<50000;
-ERROR 1054 (42S22): Unknown column 'department' in 'where clause'
-mysql> select * from emp where department='marketing' and salary=20000;
-ERROR 1054 (42S22): Unknown column 'department' in 'where clause'
-mysql> select * from emp where department='marketing' and salary<200000;
-ERROR 1054 (42S22): Unknown column 'department' in 'where clause'
-mysql> select * from emp where department='marketing' and salary<200000;
-ERROR 1054 (42S22): Unknown column 'department' in 'where clause'
 mysql> select * from emp where dept='marketing' and salary<200000;
 +-------+---------+-----------+--------+------------+
 | empid | empname | dept      | salary | joindate   |
