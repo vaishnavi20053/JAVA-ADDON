@@ -28,9 +28,7 @@ mysql> show databases;
 +--------------------+
 7 rows in set (0.00 sec)
 
-mysql> DROP TABLE IF EXISTS emp;
-ERROR 1046 (3D000): No database selected
-mysql>
+
 mysql> CREATE TABLE emp (
     ->   empno decimal(4,0) NOT NULL,
     ->   ename varchar(10) default NULL,
