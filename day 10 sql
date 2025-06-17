@@ -506,3 +506,288 @@ mysql> select*,sal*12 as Annualsalary
 |  7934 | MILLER | CLERK     | 7782 | 1982-01-23 | 1300.00 |    NULL |     10 |     15600.00 |
 +-------+--------+-----------+------+------------+---------+---------+--------+--------------+
 11 rows in set (0.00 sec)
+mysql> select *
+    -> from emp
+    -> where;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 3
+mysql> select ename
+    -> from emp
+    -> where hiredate 1981-12-31 and 1987-01-01;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '1981-12-31 and 1987-01-01' at line 3
+mysql> select ename
+    -> from emp
+    -> where hiredate > '1981-12-31'and hiredate <'1987-01-01';
++--------+
+| ename  |
++--------+
+| SCOTT  |
+| ADAMS  |
+| MILLER |
++--------+
+3 rows in set (0.04 sec)
+
+mysql> select ename,hiredate
+    -> from emp
+    -> where hiredate > '1981-12-31'and hiredate <'1987-01-01';
++--------+------------+
+| ename  | hiredate   |
++--------+------------+
+| SCOTT  | 1982-12-09 |
+| ADAMS  | 1983-01-12 |
+| MILLER | 1982-01-23 |
++--------+------------+
+3 rows in set (0.00 sec)
+
+mysql> select ename,hiredate
+    -> from emp
+    -> where hiredate between '1981-12-31' and '1987-01-01';
++--------+------------+
+| ename  | hiredate   |
++--------+------------+
+| SCOTT  | 1982-12-09 |
+| ADAMS  | 1983-01-12 |
+| MILLER | 1982-01-23 |
++--------+------------+
+3 rows in set (0.00 sec)
+
+mysql> select count(*)
+    -> from emp
+    -> where sal <2000 and deptno=10;
++----------+
+| count(*) |
++----------+
+|        1 |
++----------+
+1 row in set (0.04 sec)
+
+mysql> select deptno,sal
+    -> ;
+ERROR 1054 (42S22): Unknown column 'deptno' in 'field list'
+mysql> select  deptno,ename
+    -> from emp
+    -> where deptno=10;
++--------+--------+
+| deptno | ename  |
++--------+--------+
+|     10 | CLARK  |
+|     10 | KING   |
+|     10 | MILLER |
++--------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select sum(sal)
+    -> from emp
+    -> where job='clerk';
++----------+
+| sum(sal) |
++----------+
+|  4150.00 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select sum(sal)
+    -> from;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 2
+mysql> select sum(sal,ename)
+    -> from ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ',ename)
+from' at line 1
+mysql> select sum(sal)
+    -> from emp
+    -> where job='clerk'
+    -> group by ename;
++----------+
+| sum(sal) |
++----------+
+|   800.00 |
+|  1100.00 |
+|   950.00 |
+|  1300.00 |
++----------+
+4 rows in set (0.00 sec)
+
+mysql> select avg(sal)
+    -> from emp;
++-------------+
+| avg(sal)    |
++-------------+
+| 2073.214286 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select avg(sal)
+    -> from emp
+    -> where job='manager';
++-------------+
+| avg(sal)    |
++-------------+
+| 2758.333333 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select avg(sal),sum(sal),count(*),max(sal)
+    -> from emp;\
++-------------+----------+----------+----------+
+| avg(sal)    | sum(sal) | count(*) | max(sal) |
++-------------+----------+----------+----------+
+| 2073.214286 | 29025.00 |       14 |  5000.00 |
++-------------+----------+----------+----------+
+1 row in set (0.00 sec)
+
+mysql> select sum(sal)
+    -> from emp
+    -> group by job;
++----------+
+| sum(sal) |
++----------+
+|  4150.00 |
+|  5600.00 |
+|  8275.00 |
+|  6000.00 |
+|  5000.00 |
++----------+
+5 rows in set (0.00 sec)
+
+mysql> select sum(sal),job
+    -> from emp
+    -> group by job;
++----------+-----------+
+| sum(sal) | job       |
++----------+-----------+
+|  4150.00 | CLERK     |
+|  5600.00 | SALESMAN  |
+|  8275.00 | MANAGER   |
+|  6000.00 | ANALYST   |
+|  5000.00 | PRESIDENT |
++----------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> select count(*)
+    -> from emp
+    -> group by deptno;
++----------+
+| count(*) |
++----------+
+|        5 |
+|        6 |
+|        3 |
++----------+
+3 rows in set (0.00 sec)
+
+mysql> select avg(sal)
+    -> from emp
+    -> group by mgr;
++-------------+
+| avg(sal)    |
++-------------+
+|  800.000000 |
+| 1310.000000 |
+| 2758.333333 |
+| 3000.000000 |
+| 5000.000000 |
+| 1100.000000 |
+| 1300.000000 |
++-------------+
+7 rows in set (0.03 sec)
+
+mysql> select sum(com)
+    -> from emp
+    -> group by job;
+ERROR 1054 (42S22): Unknown column 'com' in 'field list'
+mysql> select sum(comm)
+    -> from emp
+    -> group by job;
++-----------+
+| sum(comm) |
++-----------+
+|      NULL |
+|   2200.00 |
+|      NULL |
+|      NULL |
+|      NULL |
++-----------+
+5 rows in set (0.00 sec)
+
+mysql> select count(*)
+    -> from emp
+    -> group by hiredate;
++----------+
+| count(*) |
++----------+
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        1 |
+|        2 |
+|        1 |
++----------+
+13 rows in set (0.00 sec)
+
+mysql> select sum(sal)
+    -> from emp
+    -> group by job
+    -> having sum(sal) >5000;
++----------+
+| sum(sal) |
++----------+
+|  5600.00 |
+|  8275.00 |
+|  6000.00 |
++----------+
+3 rows in set (0.00 sec)
+
+mysql> select sum(sal),job
+    -> from emp
+    -> group by job
+    -> having sum(sal)>5000;
++----------+----------+
+| sum(sal) | job      |
++----------+----------+
+|  5600.00 | SALESMAN |
+|  8275.00 | MANAGER  |
+|  6000.00 | ANALYST  |
++----------+----------+
+3 rows in set (0.00 sec)
+
+mysql> select count(*),deptno
+    -> from emp
+    -> where job='clerk'
+    -> group by deptno
+    -> having count(*) >=2;
++----------+--------+
+| count(*) | deptno |
++----------+--------+
+|        2 |     20 |
++----------+--------+
+1 row in set (0.00 sec)
+
+mysql> select avg(sal)
+    -> from emp
+    -> group by deptno
+    -> having avg(sal)>=2000;
++-------------+
+| avg(sal)    |
++-------------+
+| 2175.000000 |
+| 2916.666667 |
++-------------+
+2 rows in set (0.00 sec)
+
+mysql> select sum(comm)
+    -> from emp
+    -> group by job
+    -> having sum(comm)>1000;
++-----------+
+| sum(comm) |
++-----------+
+|   2200.00 |
++-----------+
+1 row in set (0.00 sec)
+
